@@ -60,6 +60,8 @@ services:
     hostname: hdfs-namenode-1
     ports:
       - "9870:9870"
+    env_file:
+      - .env
     environment:
       - HADOOP_HOME=/opt/hadoop
       - HADOOP_HEAPSIZE=2048
@@ -84,6 +86,8 @@ services:
     hostname: hdfs-namenode-2
     ports:
       - "9871:9870"
+    env_file:
+      - .env
     environment:
       - HADOOP_HOME=/opt/hadoop
       - HADOOP_HEAPSIZE=2048
@@ -98,6 +102,63 @@ services:
       timeout: 5s
       retries: 3
     command: ["/bin/bash", "-c", "/start-namenode.sh"]
+    restart: always
+    networks:
+      - hadoop-network
+
+  journalnode-1:
+    image: apache/hadoop:${HADOOP_VERSION}
+    container_name: journalnode-1
+    hostname: journalnode-1
+    ports:
+      - "8485:8485"
+    env_file:
+      - .env
+    environment:
+      - HADOOP_HOME=/opt/hadoop
+      - HADOOP_HEAPSIZE=2048
+    volumes:
+      - journalnode-1:/hadoop/dfs/journalnode
+      - ./hadoop/script/start-journalnode.sh:/start-journalnode.sh
+    command: ["/bin/bash", "-c", "/start-journalnode.sh"]
+    restart: always
+    networks:
+      - hadoop-network
+
+  journalnode-2:
+    image: apache/hadoop:${HADOOP_VERSION}
+    container_name: journalnode-2
+    hostname: journalnode-2
+    ports:
+      - "8486:8485"
+    env_file:
+      - .env
+    environment:
+      - HADOOP_HOME=/opt/hadoop
+      - HADOOP_HEAPSIZE=2048
+    volumes:
+      - journalnode-2:/hadoop/dfs/journalnode
+      - ./hadoop/script/start-journalnode.sh:/start-journalnode.sh
+    command: ["/bin/bash", "-c", "/start-journalnode.sh"]
+    restart: always
+    networks:
+      - hadoop-network
+
+  journalnode-3:
+    image: apache/hadoop:${HADOOP_VERSION}
+    container_name: journalnode-3
+    hostname: journalnode-3
+    ports:
+      - "8487:8485"
+    env_file:
+      - .env
+    environment:
+      - HADOOP_HOME=/opt/hadoop
+      - HADOOP_HEAPSIZE=2048
+    volumes:
+      - journalnode-3:/hadoop/dfs/journalnode
+      - ./hadoop/script/start-journalnode.sh:/start-journalnode.sh
+    command: ["/bin/bash", "-c", "/start-journalnode.sh"]
     restart: always
     networks:
       - hadoop-network
@@ -136,6 +197,27 @@ volumes:
     driver_opts:
       type: none
       device: ./persistence/hdfs-namenode-2/dfs/namenode
+      o: bind
+
+  journalnode-1:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./persistence/journalnode-1
+      o: bind
+
+  journalnode-2:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./persistence/journalnode-2
+      o: bind
+
+  journalnode-3:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./persistence/journalnode-3
       o: bind
 
 networks:

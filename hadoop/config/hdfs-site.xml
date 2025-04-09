@@ -16,7 +16,7 @@
         <value>134217728</value>
         <description>Default block size for new files.</description>
     </property>
-    <property>
+    <!-- <property>
         <name>dfs.namenode.name.dir</name>
         <value>file:///hadoop/dfs/namenode</value>
         <description>The directory where the NameNode stores the namespace and transaction logs.</description>
@@ -25,7 +25,7 @@
         <name>dfs.datanode.data.dir</name>
         <value>file:///hadoop/dfs/datanode</value>
         <description>The directory where the DataNode stores the blocks.</description>
-    </property>
+    </property> -->
     <property>
         <name>dfs.permissions</name>
         <value>false</value>
@@ -94,4 +94,17 @@
         <value>hdfs-namenode-2:9871</value>
         <description>HTTPS address for the first NameNode.</description>
     </property>
+    <property>
+        <name>dfs.namenode.shared.edits.dir</name>
+        <value>
+            qjournal://journalnode-2:8485;journalnode-1:8485;journalnode-3:8485/luradata-collection</value>
+    </property>
+    <property>
+        <name>dfs.namenode.edits.qjournals.resolution-enabled</name>
+        <value>true</value>
+    </property>
+    <!-- <property>
+        <name>dfs.journalnode.edits.dir</name>
+        <value>file:///hadoop/dfs/journalnode</value>
+    </property> -->
 </configuration>

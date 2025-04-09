@@ -1,0 +1,86 @@
+services:
+
+  zookeeper-1:
+    image: bitnami/zookeeper:${ZOOKEEPER_VERSION}
+    container_name: zookeeper-1
+    hostname: zookeeper-1
+    env_file:
+      - .env
+    environment:
+      - ZOO_SERVER_ID=1
+      - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOO_SERVERS=zookeeper-1:2888:3888,zookeeper-2:2888:3888,zookeeper-3:2888:3888
+    ports:
+      - "2181:2181"
+    volumes:
+      - zookeeper-1:/bitnami/zookeeper
+    restart: always
+    networks:
+      - hadoop-network
+
+  zookeeper-2:
+    image: bitnami/zookeeper:${ZOOKEEPER_VERSION}
+    container_name: zookeeper-2
+    hostname: zookeeper-2
+    env_file:
+      - .env
+    environment:
+      - ZOO_SERVER_ID=2
+      - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOO_SERVERS=zookeeper-1:2888:3888,zookeeper-2:2888:3888,zookeeper-3:2888:3888
+    ports:
+      - "2182:2181"
+    volumes:
+      - zookeeper-2:/bitnami/zookeeper
+    restart: always
+    networks:
+      - hadoop-network
+
+  zookeeper-3:
+    image: bitnami/zookeeper:${ZOOKEEPER_VERSION}
+    container_name: zookeeper-3
+    hostname: zookeeper-3
+    env_file:
+      - .env
+    environment:
+      - ZOO_SERVER_ID=3
+      - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOO_SERVERS=zookeeper-1:2888:3888,zookeeper-2:2888:3888,zookeeper-3:2888:3888
+    ports:
+      - "2183:2181"
+    volumes:
+      - zookeeper-3:/bitnami/zookeeper
+    restart: always
+    networks:
+      - hadoop-network
+
+volumes:
+  zookeeper-1:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./persistence/zookeeper-1
+      o: bind
+
+  zookeeper-2:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./persistence/zookeeper-2
+      o: bind
+
+  zookeeper-3:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./persistence/zookeeper-3
+      o: bind
+
+networks:
+  hadoop-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 9000
+    ipam:
+      config:
+        - subnet: 172.15.0.0/16

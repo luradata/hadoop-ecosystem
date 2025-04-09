@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://luradata-collection</value>
+        <description>The name of the default file system. A URI whose scheme and authority identify
+            the NameNode.</description>
+    </property>
+    <property>
+        <name>fs.trash.interval</name>
+        <value>1</value>
+        <description>Interval in minutes for the trash to be emptied. Set to 0 to disable.</description>
+    </property>
+    <property>
+        <name>io.compression.codecs</name>
+        <value>
+            org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.BZip2Codec,org.apache.hadoop.io.compress.DeflateCodec,org.apache.hadoop.io.compress.SnappyCodec,org.apache.hadoop.io.compress.Lz4Codec
+        </value>
+        <description>List of compression codecs available in Hadoop.</description>
+    </property>
+</configuration>

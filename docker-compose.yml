@@ -54,6 +54,54 @@ services:
     networks:
       - hadoop-network
 
+  hdfs-namenode-1:
+    image: apache/hadoop:${HADOOP_VERSION}
+    container_name: hdfs-namenode-1
+    hostname: hdfs-namenode-1
+    ports:
+      - "9870:9870"
+    environment:
+      - HADOOP_HOME=/opt/hadoop
+      - HADOOP_HEAPSIZE=2048
+    volumes:
+      - hdfs-namenode-1:/hadoop/dfs/namenode
+      - ./hadoop/config/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
+      - ./hadoop/config/hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
+      - ./hadoop/script/start-namenode.sh:/start-namenode.sh
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://hdfs-namenode-1:9870/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    command: ["/bin/bash", "-c", "/start-namenode.sh"]
+    restart: always
+    networks:
+      - hadoop-network
+
+  hdfs-namenode-2:
+    image: apache/hadoop:${HADOOP_VERSION}
+    container_name: hdfs-namenode-2
+    hostname: hdfs-namenode-2
+    ports:
+      - "9871:9870"
+    environment:
+      - HADOOP_HOME=/opt/hadoop
+      - HADOOP_HEAPSIZE=2048
+    volumes:
+      - hdfs-namenode-2:/hadoop/dfs/namenode
+      - ./hadoop/config/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
+      - ./hadoop/config/hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
+      - ./hadoop/script/start-namenode.sh:/start-namenode.sh
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://hdfs-namenode-2:9870/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    command: ["/bin/bash", "-c", "/start-namenode.sh"]
+    restart: always
+    networks:
+      - hadoop-network
+
 volumes:
   zookeeper-1:
     driver: local
@@ -74,6 +122,20 @@ volumes:
     driver_opts:
       type: none
       device: ./persistence/zookeeper-3
+      o: bind
+
+  hdfs-namenode-1:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./persistence/hdfs-namenode-1/dfs/namenode
+      o: bind
+
+  hdfs-namenode-2:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./persistence/hdfs-namenode-2/dfs/namenode
       o: bind
 
 networks:

@@ -1,7 +1,9 @@
 # Define required directories
 REQUIRED_DIRS := persistence/zookeeper-1 \
 	persistence/zookeeper-2 \
-	persistence/zookeeper-3
+	persistence/zookeeper-3 \
+	persistence/hdfs-namenode-1/dfs/namenode \
+	persistence/hdfs-namenode-2/dfs/namenode 
 
 # Create directories
 init:
@@ -14,7 +16,9 @@ clean:
 	@echo "Cleaning up..."
 	@sudo rm -rf persistence/zookeeper-1 \
 		persistence/zookeeper-2 \
-		persistence/zookeeper-3
+		persistence/zookeeper-3 \
+		persistence/hdfs-namenode-1 \
+		persistence/hdfs-namenode-2 
 	@echo "Cleaned up successfully!"
 
 # Docker compose commands

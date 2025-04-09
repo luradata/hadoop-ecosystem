@@ -103,8 +103,12 @@
         <name>dfs.namenode.edits.qjournals.resolution-enabled</name>
         <value>true</value>
     </property>
-    <!-- <property>
+    <property>
+        <name>dfs.journalnode.rpc-address</name>
+        <value>0.0.0.0:8485</value>
+    </property>
+    <property>
         <name>dfs.journalnode.edits.dir</name>
-        <value>file:///hadoop/dfs/journalnode</value>
-    </property> -->
+        <value>/hadoop/dfs/journalnode</value>
+    </property>
 </configuration>

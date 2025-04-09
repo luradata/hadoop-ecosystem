@@ -4,6 +4,8 @@ REQUIRED_DIRS := persistence/zookeeper-1 \
 	persistence/zookeeper-3 \
 	persistence/hdfs-namenode-1/dfs/namenode \
 	persistence/hdfs-namenode-2/dfs/namenode \
+	persistence/hdfs-datanode-1/dfs/datanode \
+	persistence/hdfs-datanode-2/dfs/datanode \
 	persistence/journalnode-1 \
 	persistence/journalnode-2 \
 	persistence/journalnode-3 
@@ -22,6 +24,8 @@ clean:
 		persistence/zookeeper-3 \
 		persistence/hdfs-namenode-1 \
 		persistence/hdfs-namenode-2 \
+		persistence/hdfs-datanode-1 \
+		persistence/hdfs-datanode-2 \
 		persistence/journalnode-1 \
 		persistence/journalnode-2 \
 		persistence/journalnode-3 

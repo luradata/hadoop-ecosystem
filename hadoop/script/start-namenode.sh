@@ -11,5 +11,10 @@ hdfs namenode -format -force
 # Check if the ZKFC is already formatted
 hdfs zkfc -formatZK -force
 
+hdfs --daemon start zkfc
+
+# Start the namenode
+# hdfs namenode -initializeSharedEdits
+
 # Start the namenode
 hdfs namenode

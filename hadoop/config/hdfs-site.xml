@@ -7,51 +7,6 @@
         <description>Logical name for the cluster.</description>
     </property>
     <property>
-        <name>dfs.replication</name>
-        <value>1</value>
-        <description>Default block replication</description>
-    </property>
-    <property>
-        <name>dfs.blocksize</name>
-        <value>134217728</value>
-        <description>Default block size for new files.</description>
-    </property>
-    <!-- <property>
-        <name>dfs.namenode.name.dir</name>
-        <value>file:///hadoop/dfs/namenode</value>
-        <description>The directory where the NameNode stores the namespace and transaction logs.</description>
-    </property>
-    <property>
-        <name>dfs.datanode.data.dir</name>
-        <value>file:///hadoop/dfs/datanode</value>
-        <description>The directory where the DataNode stores the blocks.</description>
-    </property> -->
-    <property>
-        <name>dfs.permissions</name>
-        <value>false</value>
-        <description>Disable permission checking.</description>
-    </property>
-    <property>
-        <name>dfs.client.use.datanode.hostname</name>
-        <value>false</value>
-        <description>Use DataNode hostnames instead of IP addresses.</description>
-    </property>
-    <property>
-        <name>dfs.client.failover.proxy.provider.luradata-collection</name>
-        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
-        <description>Failover proxy provider for HDFS HA.</description>
-    </property>
-    <property>
-        <name>dfs.ha.automatic-failover.enabled.luradata-collection</name>
-        <value>true</value>
-        <description>Enable automatic failover for HDFS HA.</description>
-    </property>
-    <property>
-        <name>ha.zookeeper.quorum</name>
-        <value>zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181</value>
-        <description>ZooKeeper quorum for HDFS HA.</description>
-    </property>
-    <property>
         <name>dfs.ha.namenodes.luradata-collection</name>
         <value>namenode-1,namenode-2</value>
         <description>List of NameNodes in the cluster.</description>
@@ -59,6 +14,11 @@
     <property>
         <name>dfs.namenode.rpc-address.luradata-collection.namenode-1</name>
         <value>hdfs-namenode-1:8020</value>
+        <description>RPC address for the first NameNode.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.luradata-collection.namenode-2</name>
+        <value>hdfs-namenode-2:8020</value>
         <description>RPC address for the first NameNode.</description>
     </property>
     <property>
@@ -71,44 +31,71 @@
         <description>HTTP address for the first NameNode.</description>
     </property>
     <property>
-        <name>dfs.namenode.https-address.luradata-collection.namenode-1</name>
-        <value>hdfs-namenode-1:9871</value>
-        <description>HTTPS address for the first NameNode.</description>
-    </property>
-    <property>
-        <name>dfs.namenode.rpc-address.luradata-collection.namenode-2</name>
-        <value>hdfs-namenode-2:8020</value>
-        <description>RPC address for the first NameNode.</description>
-    </property>
-    <property>
-        <name>dfs.namenode.servicerpc-address.luradata-collection.namenode-2</name>
-        <value>hdfs-namenode-2:8022</value>
-    </property>
-    <property>
         <name>dfs.namenode.http-address.luradata-collection.namenode-2</name>
         <value>hdfs-namenode-2:9870</value>
         <description>HTTP address for the first NameNode.</description>
     </property>
     <property>
-        <name>dfs.namenode.https-address.luradata-collection.namenode-2</name>
-        <value>hdfs-namenode-2:9871</value>
-        <description>HTTPS address for the first NameNode.</description>
-    </property>
-    <property>
         <name>dfs.namenode.shared.edits.dir</name>
         <value>
             qjournal://journalnode-2:8485;journalnode-1:8485;journalnode-3:8485/luradata-collection</value>
+        <description>Shared edits directory for the cluster.</description>
     </property>
     <property>
         <name>dfs.namenode.edits.qjournals.resolution-enabled</name>
         <value>true</value>
+        <description>Enable resolution of edits from multiple QJournals.</description>
     </property>
     <property>
-        <name>dfs.journalnode.rpc-address</name>
-        <value>0.0.0.0:8485</value>
+        <name>dfs.client.failover.proxy.provider.luradata-collection</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+        <description>Failover proxy provider for HDFS HA.</description>
     </property>
     <property>
         <name>dfs.journalnode.edits.dir</name>
         <value>/hadoop/dfs/journalnode</value>
+        <description>The directory where the JournalNode stores the edits.</description>
+    </property>
+    <property>
+        <name>dfs.ha.nn.not-become-active-in-safemode</name>
+        <value>true</value>
+        <description>Prevent NameNodes from becoming active if they are in safe mode.</description>
+    </property>
+    <property>
+        <name>dfs.ha.automatic-failover.enabled</name>
+        <value>true</value>
+        <description>Enable automatic failover for HDFS HA.</description>
+    </property>
+    <property>
+        <name>ha.zookeeper.quorum</name>
+        <value>zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181</value>
+        <description>ZooKeeper quorum for HDFS HA.</description>
+    </property>
+
+    <property>
+        <name>dfs.replication</name>
+        <value>1</value>
+        <description>Default block replication</description>
+    </property>
+    <property>
+        <name>dfs.blocksize</name>
+        <value>134217728</value>
+        <description>Default block size for new files.</description>
+    </property>
+    <!-- <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///hadoop/dfs/namenode</value>
+        <description>The directory where the NameNode stores the namespace and transaction
+    logs.</description>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///hadoop/dfs/datanode</value>
+        <description>The directory where the DataNode stores the blocks.</description>
+    </property> -->
+    <property>
+        <name>dfs.permissions</name>
+        <value>false</value>
+        <description>Disable permission checking.</description>
     </property>
 </configuration>
